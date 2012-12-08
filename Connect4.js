@@ -200,8 +200,9 @@ function updateGrid() {
       continue;
     }
     var coordsXY = JSON.parse(coords);
-    console.log(coordsXY);
+    console.log(coordsXY + "  " + coords);
     grid[coordsXY[0]][coordsXY[1]] = state_[coords];
+    console.log("sdds");
   }
   console.log("ddd");
 }
