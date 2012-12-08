@@ -185,8 +185,8 @@ function setAgainstHuman() {
 }
 
 function start() {
-  lastPlayer = '1'; // to ensure the first player is always 0
-  gapi.hangout.data.setValue("lastPlayer", "1");
+  lastPlayer = '2'; // to ensure the first player is always 0
+  gapi.hangout.data.setValue("lastPlayer", "2");
   document.getElementById("options").style.display="none";
   document.getElementById("game").style.display="block";
   draw();
