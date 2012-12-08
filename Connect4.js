@@ -187,9 +187,9 @@ function initGame() {
       function(eventObj) {
         if (eventObj.isApiReady) {
           try {
-            thisPlayer = gapi.hangout.getLocalParticipant().displayIndex.toString();
-            gapi.hangout.data.onStateChanged.add(onStateChanged);
-            gapi.hangout.data.setValue("lastPlayer", "1");
+            // thisPlayer = gapi.hangout.getLocalParticipant().displayIndex.toString();
+            // gapi.hangout.data.onStateChanged.add(onStateChanged);
+            // gapi.hangout.data.setValue("lastPlayer", "1");
 
             document.getElementById('canvas').onclick = function(e) {
               var ev = e || window.event;
