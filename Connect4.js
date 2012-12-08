@@ -213,6 +213,7 @@ function updateGrid() {
 function onStateChanged(event) {
   try {
     state_ = event.state;
+    console.log(state_);
     updateGrid();
     draw();
   } catch (e) {
@@ -223,7 +224,6 @@ function onStateChanged(event) {
 function resetGrid() {
 
   console.log("start reset, print grid");
-  initGrid(9, 9);
   console.log(grid);
   state_ = gapi.hangout.data.getState();
   for (var coords in state_) {
@@ -233,7 +233,6 @@ function resetGrid() {
   console.log(grid);
   gapi.hangout.data.setValue("lastPlayer", "2");
   state_ = null;
-  draw();
 }
 
 /** Kick off the app. */
