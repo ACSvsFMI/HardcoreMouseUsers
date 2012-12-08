@@ -229,7 +229,7 @@ function onStateChanged(event) {
 function resetGrid() {
 
   console.log("incep reset");
-  initGrid();
+  initGrid(9,9);
   console.log(grid);
   state_ = gapi.hangout.data.getState();
   for (var coords in state_) {
