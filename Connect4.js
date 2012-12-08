@@ -210,6 +210,7 @@ function start() {
   document.getElementById("game").style.display="block";
   draw();
   hasStarted = true;
+  console.log("the grid has been drawn");
 }
 
 function updateGrid() {
