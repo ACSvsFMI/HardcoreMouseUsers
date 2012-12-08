@@ -1,24 +1,17 @@
-// Keep track of how many messages were sent
-var messageLastSeen = {};
-var myMessageCount = 0;
-var missedMessages = 0;
-
-// Various constants for width and height
-var tileSide = 100;
-var pixelWidth = 300;
-var pixelHeight = 300;
-var tileWidth = pixelWidth / tileSide;
-var tileHeight = pixelHeight / tileSide;
-
 // Holds all our tile colors
 var state_ = null;
 // Grid is 9 by 9
+var grid = [];
 
-var currentPlayer = '0';
+var thisPlayer;
+var lastPlayer;
+var currentPlayer;
 var width;
 var height;
-var grid = [];
 var ERR = -1;
+var canvas = document.getElementById('canvas');
+var againstAI;
+var hasStarted = false;
 
 function initGrid(h, w) {
   grid = [];
@@ -69,6 +62,7 @@ function addMove(row, col, player) {
    *  player is a char: either '1' or '2'
    */
   grid[row][col] = player;
+  gapi.hangout.data.setValue(JSON.stringify([row, col]), player);
 }
 
 function isClear(row, col) {
@@ -78,7 +72,6 @@ function isClear(row, col) {
   return false;
 }
 
-
 function changeCurrentPlayer() {
   if (currentPlayer == '1') {
     currentPlayer = '2';
@@ -87,7 +80,7 @@ function changeCurrentPlayer() {
     currentPlayer = '1';
     return 1;
   }
-  console.log("Trying to change player that is not initialized.");
+  console.log("Trying to change a player that is not initialized.");
   return ERR;
 }
 
@@ -140,15 +133,11 @@ function draw() {
   }
 }
 
-/** Move mouse
- * @param {number} x x coordinate.
- * @param {number} y y coordinate.
- */
 function mouseClick(x, y) {
     console.log("clicked at column = ");
 
-    // if (state_["lastPlayer"] == thisPlayer)
-    //   return;
+    if (state_["lastPlayer"] == thisPlayer)
+      return;
     var colWidth = canvas_width / width;
     var column = Math.floor(x / colWidth);
     
@@ -156,6 +145,10 @@ function mouseClick(x, y) {
 
     putPiece(column, currentPlayer);
     draw();
+
+    state_["lastPlayer"] = thisPlayer;
+    gapi.hangout.data.setValue("lastPlayer", thisPlayer);
+
     changeCurrentPlayer();
     randomBotPlay();
 }
@@ -170,6 +163,57 @@ function randomBotPlay() {
   draw();
 }
 
+function setAgainstAI() {
+  againstAI = true;
+  start();
+}
+
+function setAgainstHuman() {
+  againstAI = false;
+  start();
+}
+
+function start() {
+  lastPlayer = '1'; // to ensure the first player is always 0
+  gapi.hangout.data.setValue("lastPlayer", "1");
+  document.getElementById("options").style.display="none";
+  document.getElementById("game").style.display="block";
+  draw();
+  hasStarted = true;
+}
+
+function updateGrid() {
+  for (var coords in state_) {
+    if (coords == "lastPlayer") {
+      continue;
+    }
+    var coordsXY = JSON.parse(coords);
+    grid[coordsXY[0]][coordsXY[1]] = state_[coords];
+  }
+}
+
+/** The state has changed.
+ * @param {StateChangedEvent} event An event.
+ */
+function onStateChanged(event) {
+  try {
+    state_ = event.state;
+    updateGrid();
+    draw();
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+function resetGrid() {
+  initGrid();
+  for (var coords in state_) {
+    gapi.hangout.data.clearValue(coords);
+  }
+  gapi.hangout.data.setValue("lastPlayer", "1");
+  state_ = null;
+}
+
 /** Kick off the app. */
 function initGame() {
   // When API is ready...
@@ -177,19 +221,17 @@ function initGame() {
       function(eventObj) {
         if (eventObj.isApiReady) {
           try {
-            // thisPlayer = gapi.hangout.getLocalParticipant().displayIndex.toString();
-            // gapi.hangout.data.onStateChanged.add(onStateChanged);
-            // gapi.hangout.data.setValue("lastPlayer", "1");
+            thisPlayer = gapi.hangout.getLocalParticipant().displayIndex.toString();
+            gapi.hangout.data.onStateChanged.add(onStateChanged);
             
             initGrid(9, 9);
-            currentPlayer = '1';
-
             document.getElementById('canvas').onclick = function(e) {
-              var ev = e || window.event;
-              mouseClick(ev.clientX - canvas.offsetLeft,
-                        ev.clientY - canvas.offsetTop);
+              if (hasStarted) {
+                var ev = e || window.event;
+                mouseClick(ev.clientX - canvas.offsetLeft,
+                          ev.clientY - canvas.offsetTop);
+              }
             };
-            draw();
           } catch (e) {
             console.log('init:ERROR');
             console.log(e);
@@ -199,4 +241,3 @@ function initGame() {
 }
 
 gadgets.util.registerOnLoadHandler(initGame);
-

@@ -28,13 +28,16 @@
     <h2>Connect4</h2>
     <div id="game">
         <canvas id="canvas" width='300' height='300'></canvas><br/>
-        
         <input type='button' class='button' value='Reset picture' onClick='resetGrid()'></input>
+    </div>
+    <div id="options">
+        <input type='button' class='button' value='Play against AI' onClick='setAgainstAI()'></input>
+        <input type='button' class='button' value='Play against human' onClick='setAgainstHuman()'></input>
     </div>
     <div id='text'>
         <h2>How to play</h2>
 
-        <p>Select whether you want to play agains another participant in the hangout or against out computer AI</p>
+        <p>Select whether you want to play agains another participant in the hangout or against our computer AI</p>
         
         <p>Click the column you want to put a piece in.</p>
     </div>

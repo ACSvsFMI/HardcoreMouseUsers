@@ -13,11 +13,18 @@
     margin:0 auto;
     background:#EEEEEE;
 }   
+#options {
+    float:left;
+    width:300px;
+    margin:0 auto;
+    background:#FFFFFF;
+}
 #game {
     float:left;
     width:300px;
     margin:0 auto;
     background:#FFFFFF;
+    display: none;
 }
 #text {
     float:right;
