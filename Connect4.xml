@@ -20,7 +20,7 @@
         <Content type="html"><![CDATA[     
 
 <html>
-<link rel="stylesheet" type="text/css" href="https://raw.github.com/ACSvsFMI/HardcoreMouseUsers.git/master/Connect4.css" />
+<link rel="stylesheet" type="text/css" href="https://raw.github.com/ACSvsFMI/HardcoreMouseUsers/master/Connect4.css" />
 
 <script src="https://talkgadget.google.com/hangouts/_/api/hangout.js?v=1.2" ></script>
 
@@ -39,7 +39,7 @@
         <p>Click the column you want to put a piece in.</p>
     </div>
 </div>
-<script src="https://raw.github.com/ACSvsFMI/HardcoreMouseUsers.git/master/Connect4.js"> </script>
+<script src="https://raw.github.com/ACSvsFMI/HardcoreMouseUsers/master/Connect4.js"> </script>
 </body>
 ]]>
 </Content>
