@@ -228,6 +228,7 @@ function onStateChanged(event) {
 
 function resetGrid() {
   initGrid();
+  console.log(grid);
   state_ = gapi.hangout.data.getState();
   for (var coords in state_) {
     gapi.hangout.data.clearValue(coords);
