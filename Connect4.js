@@ -218,7 +218,7 @@ function start() {
 
 function updateGrid() {
   for (var coords in state_) {
-    if (coords == "lastPlayer") {
+    if (coords == "lastPlayer" || coords == "againstAI") {
       continue;
     }
     var coordsXY = JSON.parse(coords);
