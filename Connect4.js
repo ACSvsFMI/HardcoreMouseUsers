@@ -203,6 +203,7 @@ function start() {
   if ((!againstAI) && (gapi.hangout.getEnabledParticipants() != 2)) {
     return;
   }
+  initGrid(9, 9);
   lastPlayer = '2'; // to ensure the first player is always 0
   gapi.hangout.data.setValue("lastPlayer", "2");
   gapi.hangout.data.setValue("againstAI", againstAI.toString());
