@@ -227,6 +227,8 @@ function onStateChanged(event) {
 }
 
 function resetGrid() {
+
+  console.log("incep reset");
   initGrid();
   console.log(grid);
   state_ = gapi.hangout.data.getState();
