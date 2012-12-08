@@ -139,15 +139,17 @@ function mouseClick(x, y) {
     
     console.log("clicked at column = " + column);
 
-    putPiece(column, currentPlayer);
+    putPiece(column, thisPlayer);
     draw();
 
     console.log("this player is " + thisPlayer);
     //state_["lastPlayer"] = thisPlayer;
     gapi.hangout.data.setValue("lastPlayer", thisPlayer);
 
-    changeCurrentPlayer();
-    randomBotPlay();
+    if (againstAI) {
+      changeCurrentPlayer();
+      randomBotPlay();
+    }
 }
 
 function randomBotPlay() {
