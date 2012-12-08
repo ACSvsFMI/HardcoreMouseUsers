@@ -184,8 +184,8 @@ function setAgainstAI() {
 }
 
 function setAgainstHuman() {
-  console.log("num players " + participantsEvent.enabledParticipants.length)
-  if (participantsEvent.enabledParticipants.length == 2) {
+  console.log("num players " + gapi.hangout.getEnabledParticipants().length);
+  if (gapi.hangout.getEnabledParticipants().length == 2) {
     console.log("init game, enough players\n");
     againstAI = false;
     start();
@@ -266,22 +266,6 @@ function initGame() {
       });
 }
 
-function waiting() {
-  console.log("players " + gapi.hangout.getEnabledParticipants());
-  gapi.hangout.onEnabledParticipantsChanged.add(checkParticipants);  
-}
-
-function checkParticipants(participantsEvent) {
-  console.log("num players " + participantsEvent.enabledParticipants.length)
-  if (participantsEvent.enabledParticipants.length == 2) {
-    console.log("init game, enough players\n");
-    initGame();
-  } else {
-    console.log("still not enough players, bad\n");
-    waiting();
-  }
-}
-
 // Wait for gadget to load.
-//gadgets.util.registerOnLoadHandler(initGame);
-gadgets.util.registerOnLoadHandler(waiting);
+gadgets.util.registerOnLoadHandler(initGame);
+// gadgets.util.registerOnLoadHandler(waiting);
