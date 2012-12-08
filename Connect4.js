@@ -211,6 +211,7 @@ function start() {
   draw();
   hasStarted = true;
   console.log("the grid has been drawn");
+  console.log(grid);
 }
 
 function updateGrid() {
