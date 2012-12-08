@@ -195,6 +195,7 @@ function start() {
 }
 
 function updateGrid() {
+  console.log("ddd");
   for (var coords in state_) {
     if (coords == "lastPlayer") {
       continue;
