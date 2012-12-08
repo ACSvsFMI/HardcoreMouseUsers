@@ -201,7 +201,8 @@ function updateGrid() {
     }
     var coordsXY = JSON.parse(coords);
     console.log(coordsXY[0] + "   " + coordsXY[1] + "  " + coords + state_);
-    console.log(grid[coordsXY[0]][coordsXY[1]] + "  ----   " + state_[coords]);
+    console.log(grid);
+    console.log("  ----   " + state_[coords]);
     grid[coordsXY[0]][coordsXY[1]] = state_[coords];
     console.log("sdds");
   }
