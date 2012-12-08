@@ -195,14 +195,15 @@ function start() {
 }
 
 function updateGrid() {
-  console.log("ddd");
   for (var coords in state_) {
     if (coords == "lastPlayer") {
       continue;
     }
     var coordsXY = JSON.parse(coords);
+    console.log(coordsXY);
     grid[coordsXY[0]][coordsXY[1]] = state_[coords];
   }
+  console.log("ddd");
 }
 
 /** The state has changed.
