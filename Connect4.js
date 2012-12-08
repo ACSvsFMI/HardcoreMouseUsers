@@ -232,7 +232,7 @@ function initGame() {
       function(eventObj) {
         if (eventObj.isApiReady) {
           try {
-            thisPlayer = gapi.hangout.getLocalParticipant().displayIndex.toString() + 1;
+            thisPlayer = (gapi.hangout.getLocalParticipant().displayIndex + 1).toString();
             currentPlayer = thisPlayer;
             console.log("init, this player is " + thisPlayer);
             gapi.hangout.data.onStateChanged.add(onStateChanged);
