@@ -224,6 +224,7 @@ function onStateChanged(event) {
 
 function resetGrid() {
   var delta = {};
+  initGrid(9,9);
   delta["lastPlayer"] = "2";
   var keys = gapi.hangout.data.getKeys();
   var remove_keys = [];
