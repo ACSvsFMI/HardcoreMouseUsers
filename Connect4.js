@@ -180,21 +180,31 @@ function randomBotPlay() {
 
 function setAgainstAI() {
   againstAI = true;
+  gapi.hangout.data.setValue("againstAI", againstAI.toString());
   start();
 }
 
 function setAgainstHuman() {
-  console.log("num players " + gapi.hangout.getEnabledParticipants().length);
-  if (gapi.hangout.getEnabledParticipants().length == 2) {
-    console.log("init game, enough players\n");
+  againstAI = false;
+  gapi.hangout.data.setValue("againstAI", againstAI.toString());
+  start();
+}
+
+function setAgainstFromState() {
+  if (gapi.hangout.data.getValue("againstAI") == "true") {
+    againstAI = true;
+  } else {
     againstAI = false;
-    start();
   }
 }
 
 function start() {
+  setAgainstFromState();
+  if (!againstAI && gapi.hangout.getEnabledParticipants() != 2)
+    return;
   lastPlayer = '2'; // to ensure the first player is always 0
   gapi.hangout.data.setValue("lastPlayer", "2");
+  gapi.hangout.data.setValue("againstAI", againstAI.toString());
   document.getElementById("options").style.display="none";
   document.getElementById("game").style.display="block";
   draw();
@@ -242,30 +252,60 @@ function resetGrid() {
 function initGame() {
   // When API is ready...
   gapi.hangout.onApiReady.add(
-      function(eventObj) {
-        if (eventObj.isApiReady) {
-          try {
+    function(eventObj) {
+      if (eventObj.isApiReady) {
+        try {
+          thisPlayer = (gapi.hangout.getLocalParticipant().displayIndex + 1).toString();
+          currentPlayer = thisPlayer;
+          console.log("init, this player is " + thisPlayer);
+          
+          // in case participants change, update this participant's id
+          gapi.hangout.onEnabledParticipantsChanged.add(function(participantsEvent) {
             thisPlayer = (gapi.hangout.getLocalParticipant().displayIndex + 1).toString();
             currentPlayer = thisPlayer;
-            console.log("init, this player is " + thisPlayer);
-            gapi.hangout.data.onStateChanged.add(onStateChanged);
-            
-            initGrid(9, 9);
-            document.getElementById('canvas').onclick = function(e) {
-              if (hasStarted) {
-                var ev = e || window.event;
-                mouseClick(ev.clientX - canvas.offsetLeft,
-                          ev.clientY - canvas.offsetTop);
-              }
-            };
-          } catch (e) {
-            console.log('init:ERROR');
-            console.log(e);
+          });
+
+          gapi.hangout.data.onStateChanged.add(onStateChanged);
+
+          initGrid(9, 9);
+          document.getElementById('canvas').onclick = function(e) {
+            if (hasStarted) {
+              var ev = e || window.event;
+              mouseClick(ev.clientX - canvas.offsetLeft,
+                         ev.clientY - canvas.offsetTop);
+            }
+          };
+
+          if (gapi.hangout.data.getValue("againstAI")) {
+            setAgainstFromState();
+            start();
           }
+        } catch (e) {
+          console.log('init:ERROR');
+          console.log(e);
         }
-      });
+      }
+    });
+}
+
+function waiting() {
+  console.log("players " + gapi.hangout.getEnabledParticipants());
+  gapi.hangout.onEnabledParticipantsChanged.add(checkParticipants);  
+}
+
+function checkParticipants(participantsEvent) {
+  console.log("num players " + participantsEvent.enabledParticipants.length);
+  if (againstAI) {
+    initGame();
+  } else if (participantsEvent.enabledParticipants.length == 2 && !againstAI) {
+    console.log("init game, enough players\n");
+    initGame();
+  } else {
+    console.log("still not enough players, bad\n");
+  }
 }
 
 // Wait for gadget to load.
-gadgets.util.registerOnLoadHandler(initGame);
-// gadgets.util.registerOnLoadHandler(waiting);
+//gadgets.util.registerOnLoadHandler(init);
+gadgets.util.registerOnLoadHandler(waiting);
+
