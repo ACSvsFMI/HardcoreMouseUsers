@@ -150,24 +150,23 @@ function mouseClick(x, y) {
     // if (state_["lastPlayer"] == thisPlayer)
     //   return;
     var colWidth = canvas_width / width;
-    var column = Math.floor(y / colWidth);
+    var column = Math.floor(x / colWidth);
     
     console.log("clicked at column = " + column);
 
     putPiece(column, currentPlayer);
     draw();
+    changeCurrentPlayer();
     randomBotPlay();
 }
 
 function randomBotPlay() {
-  for (var i = 0; i < 10; ++i) {
-    var col = randomNumber(0, width - 1);
-    while (putPiece(col, currentPlayer) == ERR) {
-      col = randomNumber(0, width);
-    }
-    console.log("Adding " + currentPlayer + " to " + col);
-   // changeCurrentPlayer();
+  var col = randomNumber(0, width - 1);
+  while (putPiece(col, currentPlayer) == ERR) {
+    col = randomNumber(0, width);
   }
+  console.log("Adding " + currentPlayer + " to " + col);
+  changeCurrentPlayer();
   draw();
 }
 
