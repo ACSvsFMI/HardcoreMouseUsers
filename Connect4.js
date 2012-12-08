@@ -184,8 +184,12 @@ function setAgainstAI() {
 }
 
 function setAgainstHuman() {
-  againstAI = false;
-  start();
+  console.log("num players " + participantsEvent.enabledParticipants.length)
+  if (participantsEvent.enabledParticipants.length == 2) {
+    console.log("init game, enough players\n");
+    againstAI = false;
+    start();
+  }
 }
 
 function start() {
