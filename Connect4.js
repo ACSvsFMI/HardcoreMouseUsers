@@ -193,16 +193,19 @@ function setAgainstHuman() {
 }
 
 function setAgainstFromState() {
-  if (gapi.hangout.data.getValue("againstAI") == "true") {
-    againstAI = true;
-  } else {
-    againstAI = false;
+  if (gapi.hangout.data.getValue("againstAI")) {
+    if (gapi.hangout.data.getValue("againstAI") == "true") {
+      againstAI = true;
+    } else {
+      againstAI = false;
+    }
   }
 }
 
 function start() {
   setAgainstFromState();
   if ((!againstAI) && (gapi.hangout.getEnabledParticipants() != 2)) {
+    console.log("not enough participants, against human");
     return;
   }
   initGrid(9, 9);
