@@ -170,6 +170,7 @@ function randomBotPlay() {
     col = randomNumber(0, width);
   }
   console.log("Adding " + currentPlayer + " to " + col);
+  gapi.hangout.data.setValue("lastPlayer", currentPlayer);
   changeCurrentPlayer();
   draw();
 }
