@@ -225,13 +225,14 @@ function resetGrid() {
   var delta = {};
   delta["lastPlayer"] = "2";
   var keys = gapi.hangout.data.getKeys();
+  var remove_keys = [];
   for(var i = 0; i < keys.length; i++) {
-    if(keys[i] == "lastPlayer") {
-      keys.splice(i, 1);
-      break;
+    if(keys[i] != "lastPlayer") {
+      remove_keys.push(keys[i].toString());
     }
   }
-  gapi.hangout.data.submitDelta(delta, keys);
+  gapi.hangout.data.submitDelta(delta, remove_keys);
+  console.log(gapi.hangout.data.getState());
 }
 
 /** Kick off the app. */
