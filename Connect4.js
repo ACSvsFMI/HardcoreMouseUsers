@@ -154,31 +154,21 @@ function mouseClick(x, y) {
     
     console.log("clicked at column = " + column);
 
-    putPiece(tileY, thisPlayer);
+    putPiece(column, currentPlayer);
     draw();
+    randomBotPlay();
 }
 
-function main() {
-  initGrid(9, 9);
-
-  currentPlayer = '1';
+function randomBotPlay() {
   for (var i = 0; i < 10; ++i) {
     var col = randomNumber(0, width - 1);
     while (putPiece(col, currentPlayer) == ERR) {
       col = randomNumber(0, width);
     }
     console.log("Adding " + currentPlayer + " to " + col);
-    changeCurrentPlayer();
+   // changeCurrentPlayer();
   }
-  //printGrid();
-  while (true) {
-    document.getElementById('canvas').onclick = function(e) {
-              var ev = e || window.event;
-              mouseClick(ev.clientX - canvas.offsetLeft,
-                        ev.clientY - canvas.offsetTop);
-            };
-    draw();
-  }
+  draw();
 }
 
 /** Kick off the app. */
@@ -191,6 +181,9 @@ function initGame() {
             // thisPlayer = gapi.hangout.getLocalParticipant().displayIndex.toString();
             // gapi.hangout.data.onStateChanged.add(onStateChanged);
             // gapi.hangout.data.setValue("lastPlayer", "1");
+            
+            initGrid(9, 9);
+            currentPlayer = '1';
 
             document.getElementById('canvas').onclick = function(e) {
               var ev = e || window.event;
