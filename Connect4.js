@@ -110,7 +110,7 @@ function fullGrid() {
 }
 
 function draw() {
-  console.log("drawing");
+  //console.log("drawing");
   var canvas = document.getElementById('canvas');
   if (canvas.getContext) {
     var ctx = canvas.getContext('2d');
@@ -155,6 +155,7 @@ function mouseClick(x, y) {
     console.log("clicked at column = " + column);
 
     putPiece(tileY, thisPlayer);
+    draw();
 }
 
 function main() {
