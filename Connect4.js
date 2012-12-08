@@ -200,8 +200,9 @@ function setAgainstFromState() {
 
 function start() {
   setAgainstFromState();
-  if (!againstAI && gapi.hangout.getEnabledParticipants() != 2)
+  if ((!againstAI) && (gapi.hangout.getEnabledParticipants() != 2)) {
     return;
+  }
   lastPlayer = '2'; // to ensure the first player is always 0
   gapi.hangout.data.setValue("lastPlayer", "2");
   gapi.hangout.data.setValue("againstAI", againstAI.toString());
@@ -275,11 +276,6 @@ function initGame() {
                          ev.clientY - canvas.offsetTop);
             }
           };
-
-          if (gapi.hangout.data.getValue("againstAI")) {
-            setAgainstFromState();
-            start();
-          }
         } catch (e) {
           console.log('init:ERROR');
           console.log(e);
