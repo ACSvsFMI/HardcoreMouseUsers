@@ -212,6 +212,7 @@ function onStateChanged(event) {
     state_ = event.state;
     updateGrid();
     draw();
+    console.log(state_);
   } catch (e) {
     console.log(e);
   }
@@ -225,7 +226,7 @@ function resetGrid() {
   }
   console.log("setting last player after cleaning up");
   gapi.hangout.data.setValue("lastPlayer", "2");
-  state_ = null;
+  // state_ = null;
 }
 
 /** Kick off the app. */
