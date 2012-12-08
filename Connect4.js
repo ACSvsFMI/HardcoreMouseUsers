@@ -72,15 +72,13 @@ function isClear(row, col) {
   return false;
 }
 
-function changeCurrentPlayer() {
-  if (currentPlayer == '1') {
-    currentPlayer = '2';
-    return 1;
-  } else if (currentPlayer == '2') {
-    currentPlayer = '1';
-    return 1;
+function getOpponent(player) {
+  if (player == '1') {
+    return '2';
+  } else if (player == '2') {
+    return '1';
   }
-  console.log("Trying to change a player that is not initialized.");
+  console.log("Trying to get opponent of a player that is not initialized.");
   return ERR;
 }
 
@@ -134,8 +132,6 @@ function draw() {
 }
 
 function mouseClick(x, y) {
-    console.log("clicked at column = ");
-
     if (state_["lastPlayer"] == thisPlayer)
       return;
     var colWidth = canvas_width / width;
@@ -146,7 +142,8 @@ function mouseClick(x, y) {
     putPiece(column, currentPlayer);
     draw();
 
-    state_["lastPlayer"] = thisPlayer;
+    console.log(thisPlayer);
+    //state_["lastPlayer"] = thisPlayer;
     gapi.hangout.data.setValue("lastPlayer", thisPlayer);
 
     changeCurrentPlayer();
