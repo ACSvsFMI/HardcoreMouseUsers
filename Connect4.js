@@ -209,10 +209,13 @@ function updateGrid() {
  */
 function onStateChanged(event) {
   try {
+    console.log("initial  " + state_);
     state_ = event.state;
+    console.log("after  " + state_);
     updateGrid();
+    console.log("after update grid, before draw");
     draw();
-    console.log(state_);
+    console.log("after draw");
   } catch (e) {
     console.log(e);
   }
