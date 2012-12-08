@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Module>
+<!-- Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License. You may obtain a copy of
+ * the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *      
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations under
+ * the License
+-->
+        <ModulePrefs title="Connect4">
+                <Require feature="rpc" />
+                <Require feature="views" />
+                <Require feature="locked-domain" />
+        </ModulePrefs>
+        <Content type="html"><![CDATA[     
+
+<html>
+<link rel="stylesheet" type="text/css" href="https://raw.github.com/ACSvsFMI/HardcoreMouseUsers.git/master/Connect4.css" />
+
+<script src="https://talkgadget.google.com/hangouts/_/api/hangout.js?v=1.2" ></script>
+
+<div id="wrap">
+    <h2>Connect4</h2>
+    <div id="game">
+        <canvas id="canvas" width='300' height='300'></canvas><br/>
+        
+        <input type='button' class='button' value='Reset picture' onClick='resetGrid()'></input>
+    </div>
+    <div id='text'>
+        <h2>How to play</h2>
+
+        <p>Select whether you want to play agains another participant in the hangout or against out computer AI</p>
+        
+        <p>Click the column you want to put a piece in.</p>
+    </div>
+</div>
+<script src="https://raw.github.com/ACSvsFMI/HardcoreMouseUsers.git/master/Connect4.js"> </script>
+</body>
+]]>
+</Content>
+</Module>
