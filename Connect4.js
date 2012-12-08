@@ -204,7 +204,7 @@ function setAgainstFromState() {
 }
 
 function start() {
-  console.log(state_);
+  state_ = gapi.hangout.data.getValue();
   setAgainstFromState();
   if ((!againstAI) && (gapi.hangout.getEnabledParticipants() != 2)) {
     console.log("not enough participants, against human");
