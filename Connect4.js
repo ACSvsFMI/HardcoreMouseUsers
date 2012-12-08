@@ -147,6 +147,7 @@ function changeCurrentPlayer() {
 }
 
 function mouseClick(x, y) {
+  state_ = gapi.hangouts.data.getState();
     if (state_["lastPlayer"] == thisPlayer)
       return;
     var colWidth = canvas_width / width;
