@@ -302,6 +302,7 @@ function checkParticipants(participantsEvent) {
   } else if (participantsEvent.enabledParticipants.length == 2 && !againstAI) {
     console.log("init game, enough players\n");
     initGame();
+    start();
   } else {
     console.log("still not enough players, bad\n");
   }
