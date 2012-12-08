@@ -140,11 +140,28 @@ function draw() {
   }
 }
 
+/** Move mouse
+ * @param {number} x x coordinate.
+ * @param {number} y y coordinate.
+ */
+function mouseClick(x, y) {
+    console.log("clicked at column = ");
+
+    // if (state_["lastPlayer"] == thisPlayer)
+    //   return;
+    var colWidth = canvas_width / width;
+    var column = Math.floor(y / colWidth);
+    
+    console.log("clicked at column = " + column);
+
+    putPiece(tileY, thisPlayer);
+}
+
 function main() {
   initGrid(9, 9);
 
   currentPlayer = '1';
-  for (var i = 0; i < 60; ++i) {
+  for (var i = 0; i < 10; ++i) {
     var col = randomNumber(0, width - 1);
     while (putPiece(col, currentPlayer) == ERR) {
       col = randomNumber(0, width);
@@ -153,7 +170,40 @@ function main() {
     changeCurrentPlayer();
   }
   //printGrid();
-  draw();
+  while (true) {
+    document.getElementById('canvas').onclick = function(e) {
+              var ev = e || window.event;
+              mouseClick(ev.clientX - canvas.offsetLeft,
+                        ev.clientY - canvas.offsetTop);
+            };
+    draw();
+  }
 }
 
-main();
+/** Kick off the app. */
+function initGame() {
+  // When API is ready...
+  gapi.hangout.onApiReady.add(
+      function(eventObj) {
+        if (eventObj.isApiReady) {
+          try {
+            thisPlayer = gapi.hangout.getLocalParticipant().displayIndex.toString();
+            gapi.hangout.data.onStateChanged.add(onStateChanged);
+            gapi.hangout.data.setValue("lastPlayer", "1");
+
+            document.getElementById('canvas').onclick = function(e) {
+              var ev = e || window.event;
+              mouseClick(ev.clientX - canvas.offsetLeft,
+                        ev.clientY - canvas.offsetTop);
+            };
+            draw();
+          } catch (e) {
+            console.log('init:ERROR');
+            console.log(e);
+          }
+        }
+      });
+}
+
+gadgets.util.registerOnLoadHandler(initGame);
+
