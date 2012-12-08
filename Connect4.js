@@ -167,7 +167,7 @@ function mouseClick(x, y) {
 function randomBotPlay() {
   var col = randomNumber(0, width - 1);
   while (putPiece(col, currentPlayer) == ERR) {
-    col = randomNumber(0, width);
+    col = randomNumber(0, width - 1);
   }
   console.log("Adding " + currentPlayer + " to " + col);
   gapi.hangout.data.setValue("lastPlayer", currentPlayer);
@@ -219,9 +219,11 @@ function onStateChanged(event) {
 
 function resetGrid() {
   initGrid();
+  state_ = gapi.hangout.data.getState();
   for (var coords in state_) {
     gapi.hangout.data.clearValue(coords);
   }
+  console.log("setting last player after cleaning up");
   gapi.hangout.data.setValue("lastPlayer", "2");
   state_ = null;
 }
