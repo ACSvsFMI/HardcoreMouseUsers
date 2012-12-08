@@ -213,8 +213,6 @@ function updateGrid() {
 function onStateChanged(event) {
   try {
     state_ = event.state;
-    console.log(event.state);
-    console.log(state_);
     updateGrid();
     draw();
   } catch (e) {
