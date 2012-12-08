@@ -213,6 +213,7 @@ function updateGrid() {
 function onStateChanged(event) {
   try {
     state_ = event.state;
+    console.log(event.state);
     updateGrid();
     draw();
   } catch (e) {
@@ -224,14 +225,12 @@ function resetGrid() {
   var delta = {};
   delta["lastPlayer"] = "2";
   var keys = gapi.hangout.data.getKeys();
-  console.log(keys);
   for(var i = 0; i < keys.length; i++) {
     if(keys[i] == "lastPlayer") {
       keys.splice(i, 1);
       break;
     }
   }
-  console.log(keys);
   gapi.hangout.data.submitDelta(delta, keys);
 }
 
