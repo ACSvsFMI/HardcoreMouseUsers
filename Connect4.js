@@ -233,6 +233,7 @@ function resetGrid() {
   console.log(grid);
   gapi.hangout.data.setValue("lastPlayer", "2");
   state_ = null;
+  draw();
 }
 
 /** Kick off the app. */
