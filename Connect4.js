@@ -200,13 +200,8 @@ function updateGrid() {
       continue;
     }
     var coordsXY = JSON.parse(coords);
-    console.log(coordsXY[0] + "   " + coordsXY[1] + "  " + coords + state_);
-    console.log(grid);
-    console.log("  ----   " + state_[coords]);
     grid[coordsXY[0]][coordsXY[1]] = state_[coords];
-    console.log("sdds");
   }
-  console.log("ddd");
 }
 
 /** The state has changed.
@@ -214,13 +209,9 @@ function updateGrid() {
  */
 function onStateChanged(event) {
   try {
-    console.log("initial  " + state_);
     state_ = event.state;
-    console.log("after  " + state_);
     updateGrid();
-    console.log("after update grid, before draw");
     draw();
-    console.log("after draw");
   } catch (e) {
     console.log(e);
   }
@@ -228,16 +219,17 @@ function onStateChanged(event) {
 
 function resetGrid() {
 
-  console.log("incep reset");
-  initGrid(9,9);
+  console.log("start reset, print grid");
+  initGrid(9, 9);
   console.log(grid);
   state_ = gapi.hangout.data.getState();
   for (var coords in state_) {
     gapi.hangout.data.clearValue(coords);
   }
-  console.log("setting last player after cleaning up");
+  console.log("setting last player after cleaning up in reset");
   gapi.hangout.data.setValue("lastPlayer", "2");
-  // state_ = null;
+  state_ = null;
+  draw();
 }
 
 /** Kick off the app. */
