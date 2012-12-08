@@ -213,7 +213,6 @@ function updateGrid() {
 function onStateChanged(event) {
   try {
     state_ = event.state;
-    console.log(state_);
     updateGrid();
     draw();
   } catch (e) {
@@ -222,18 +221,10 @@ function onStateChanged(event) {
 }
 
 function resetGrid() {
-
-  console.log("start reset, print grid");
-  console.log(grid);
-  state_ = gapi.hangout.data.getState();
-  for (var coords in state_) {
-    gapi.hangout.data.clearValue(coords);
-  }
-  console.log("setting last player after cleaning up in reset");
-  console.log(grid);
-  gapi.hangout.data.setValue("lastPlayer", "2");
-  state_ = null;
-  draw();
+  var delta = {};
+  delta["lastPlayer"] = "2";
+  var keys = gapi.hangout.data.getKeys();
+  gapi.hangout.data.submitDelta(delta, keys);
 }
 
 /** Kick off the app. */
