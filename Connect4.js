@@ -132,6 +132,7 @@ function draw() {
       }
     }
   }
+  console.log(grid);
 }
 
 function changeCurrentPlayer() {
@@ -148,24 +149,24 @@ function changeCurrentPlayer() {
 
 function mouseClick(x, y) {
   state_ = gapi.hangout.data.getState();
-    if (state_["lastPlayer"] == thisPlayer)
-      return;
-    var colWidth = canvas_width / width;
-    var column = Math.floor(x / colWidth);
-    
-    console.log("clicked at column = " + column);
+  if (state_["lastPlayer"] == thisPlayer)
+    return;
+  var colWidth = canvas_width / width;
+  var column = Math.floor(x / colWidth);
+  
+  console.log("clicked at column = " + column);
 
-    putPiece(column, thisPlayer);
-    draw();
+  putPiece(column, thisPlayer);
+  draw();
 
-    console.log("this player is " + thisPlayer);
-    //state_["lastPlayer"] = thisPlayer;
-    gapi.hangout.data.setValue("lastPlayer", thisPlayer);
+  console.log("this player is " + thisPlayer);
+  //state_["lastPlayer"] = thisPlayer;
+  gapi.hangout.data.setValue("lastPlayer", thisPlayer);
 
-    if (againstAI) {
-      changeCurrentPlayer();
-      randomBotPlay();
-    }
+  if (againstAI) {
+    changeCurrentPlayer();
+    randomBotPlay();
+  }
 }
 
 function randomBotPlay() {
