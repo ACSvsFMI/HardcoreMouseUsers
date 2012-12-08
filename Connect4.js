@@ -221,7 +221,7 @@ function resetGrid() {
   for (var coords in state_) {
     gapi.hangout.data.clearValue(coords);
   }
-  gapi.hangout.data.setValue("lastPlayer", "1");
+  gapi.hangout.data.setValue("lastPlayer", "2");
   state_ = null;
 }
 
@@ -232,7 +232,7 @@ function initGame() {
       function(eventObj) {
         if (eventObj.isApiReady) {
           try {
-            thisPlayer = gapi.hangout.getLocalParticipant().displayIndex.toString();
+            thisPlayer = gapi.hangout.getLocalParticipant().displayIndex.toString() + 1;
             currentPlayer = thisPlayer;
             console.log("init, this player is " + thisPlayer);
             gapi.hangout.data.onStateChanged.add(onStateChanged);
