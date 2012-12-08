@@ -108,6 +108,9 @@ function draw() {
     canvas_height = canvas.height;
     canvas_width = canvas.width;
 
+    ctx.fillStyle = '#000';
+    ctx.fillRect(0, 0, canvas_width, canvas_height);
+
     for (var i = 0; i < width; i++) {
       for (var j = 0; j < height; j++) {
         ctx.beginPath();
@@ -227,6 +230,7 @@ function resetGrid() {
     gapi.hangout.data.clearValue(coords);
   }
   console.log("setting last player after cleaning up in reset");
+  console.log(grid);
   gapi.hangout.data.setValue("lastPlayer", "2");
   state_ = null;
   draw();
