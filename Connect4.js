@@ -5,7 +5,7 @@ var grid = [];
 
 var thisPlayer;
 var lastPlayer;
-var currentPlayer;
+var currentPlayer; // used mainly for playing against AI
 var width;
 var height;
 var ERR = -1;
@@ -131,6 +131,18 @@ function draw() {
   }
 }
 
+function changeCurrentPlayer() {
+  if (currentPlayer == '1') {
+    currentPlayer = '2';
+    return 1;
+  } else if (currentPlayer == '2') {
+    currentPlayer = '1';
+    return 1;
+  }
+  console.log("Trying to change player that is not initialized.");
+  return ERR;
+}
+
 function mouseClick(x, y) {
     if (state_["lastPlayer"] == thisPlayer)
       return;
@@ -221,6 +233,7 @@ function initGame() {
         if (eventObj.isApiReady) {
           try {
             thisPlayer = gapi.hangout.getLocalParticipant().displayIndex.toString();
+            currentPlayer = thisPlayer;
             console.log("init, this player is " + thisPlayer);
             gapi.hangout.data.onStateChanged.add(onStateChanged);
             
