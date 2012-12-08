@@ -142,7 +142,7 @@ function mouseClick(x, y) {
     putPiece(column, currentPlayer);
     draw();
 
-    console.log(thisPlayer);
+    console.log("this player is " + thisPlayer);
     //state_["lastPlayer"] = thisPlayer;
     gapi.hangout.data.setValue("lastPlayer", thisPlayer);
 
@@ -219,6 +219,7 @@ function initGame() {
         if (eventObj.isApiReady) {
           try {
             thisPlayer = gapi.hangout.getLocalParticipant().displayIndex.toString();
+            console.log("init, this player is " + thisPlayer);
             gapi.hangout.data.onStateChanged.add(onStateChanged);
             
             initGrid(9, 9);
