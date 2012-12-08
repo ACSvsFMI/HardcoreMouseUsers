@@ -214,6 +214,7 @@ function onStateChanged(event) {
   try {
     state_ = event.state;
     console.log(event.state);
+    console.log(state_);
     updateGrid();
     draw();
   } catch (e) {
@@ -232,7 +233,6 @@ function resetGrid() {
     }
   }
   gapi.hangout.data.submitDelta(delta, remove_keys);
-  console.log(gapi.hangout.data.getState());
 }
 
 /** Kick off the app. */
