@@ -289,7 +289,8 @@ function initGame() {
 
 function waiting() {
   console.log("players " + gapi.hangout.getEnabledParticipants());
-  gapi.hangout.onEnabledParticipantsChanged.add(checkParticipants);  
+  initGame();
+  gapi.hangout.onEnabledParticipantsChanged.add(checkParticipants);
 }
 
 function checkParticipants(participantsEvent) {
